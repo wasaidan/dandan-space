@@ -112,7 +112,7 @@ body{
   <div class="num">18751316413</div>
 </div>
 <div class="tip-side">
-  <div class="tip-btn" onclick="showTip()">☕ 支持</div>
+  <div class="tip-btn" onclick="showTip()">☕ 如果喜欢，随心支持</div>
 </div>
 <div class="foot">慢慢来</div>
 </div>
@@ -163,7 +163,33 @@ const ARTICLES = [
     {type:'p',text:'以前我怕那种"停顿"——怕空、怕没着落、怕失去控制。今天发现，那个停顿里不是空，是外婆的呼吸声。不是失去，是连接。'},
     {type:'p',text:'原来身体从未忘记。外婆的呼吸节奏刻进了我的神经里，只是以前呼吸太急，没认出它。现在慢下来了，停顿出现了，它就回来了。'},
     {type:'p',text:'这不是悲伤，是重逢。'}
-  ]}
+  ]},
+  {id:'earthworm',category:'成长觉察 · 2026.04.23',title:'',content:[
+    {type:'p',text:'昨天走下楼看到一条蚯蚓在地砖上爬'},
+    {type:'p',text:'当时有一个念头要不要送它去草坪里面'},
+    {type:'p',text:'脑子里想的是不要干涉他人的因果'},
+    {type:'p',text:'这些都是它要经历的 是它自己的命'},
+    {type:'p',text:'走了'},
+    {type:'p',text:'回来的时候我发现它已经死了'},
+    {type:'p',text:'这个画面有一些小小的触动'},
+    {type:'p',text:'我问自己如果再经历一次我会不会去帮它'},
+    {type:'p',text:'没有答案'},
+    {type:'p',text:'今天出去的时候又看到一条蚯蚓在地砖上'},
+    {type:'p',text:'我看到自己走过去了还是没救'},
+    {type:'p',text:'一边走一边在想这件事'},
+    {type:'p',text:'走到前面看到一根树枝'},
+    {type:'p',text:'我看到自己低下身来捡了树枝'},
+    {type:'p',text:'拿着这根树枝回头把蚯蚓挑着送到草坪里面'},
+    {type:'p',text:'走了'},
+    {type:'p',text:'一路走一路想'},
+    {type:'p',text:'这样的生命很多都要干预？'},
+    {type:'p',text:'那就看当时的情况'},
+    {type:'p',text:'时间充裕吗？心里有那个想救的念头吗？'},
+    {type:'p',text:'有 就做  没有 就走'},
+    {type:'p',text:'不立规矩 不背责任 不给自己贴标签'},
+    {type:'p',text:'风吹哪页读哪页'},
+    {type:'p',text:'这是2026年4月23日的觉察日记'}
+  ]},
 ];
 
 let ci=0;const SK='thirdspace_reactions';
@@ -176,7 +202,7 @@ function ra(i){
     if(b.type==='p')b.text.split('\n').forEach(l=>{h+='<p class="left">'+l+'</p>'});
     else if(b.type==='line')h+='<div class="line">'+b.text.replace(/\n/g,'<br>')+'</div>';
   });
-  h+='<div class="article-tip"><div class="tip-divider">· · ·</div><button class="tip-inline-btn" onclick="showTip()">☕ 支持</button></div>';e.innerHTML=h;
+  h+='<div class="article-tip"><div class="tip-divider">· · ·</div><button class="tip-inline-btn" onclick="showTip()">☕ 如果喜欢，随心支持</button></div>';e.innerHTML=h;
   
   document.getElementById('prevBtn').disabled=(i===0);
   document.getElementById('nextBtn').disabled=(i===ARTICLES.length-1);

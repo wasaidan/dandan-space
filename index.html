@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -7,8 +7,8 @@
 <meta property="og:title" content="记录 · 第三空间" />
 <meta property="og:description" content="觉察 · 感受 · 生长。我是丹丹，一个90后人保代理人。这里是我记录和觉察的地方。" />
 <meta property="og:type" content="website" />
-<meta property="og:image" content="https://raw.githubusercontent.com/YOUR_USERNAME/dandan-space/main/og-image.svg" />
-<meta property="og:url" content="https://YOUR_USERNAME.github.io/dandan-space/" />
+<meta property="og:image" content="https://raw.githubusercontent.com/wasaidan/dandan-space/main/og-image.svg" />
+<meta property="og:url" content="https://wasaidan.github.io/dandan-space/" />
 <meta name="description" content="觉察 · 感受 · 生长。我是丹丹，一个90后人保代理人。这里是我记录和觉察的地方。" />
 <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
 <style>
@@ -223,6 +223,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(e.key==='ArrowRight'&&ci<ARTICLES.length-1)ra(ci+1);
   });
 });
+</script>
 <div class="tip-overlay" id="tipOverlay" onclick="hideTip()">
   <div class="tip-modal" onclick="event.stopPropagation()">
     <button class="tip-close" onclick="hideTip()">✕</button>
@@ -239,7 +240,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     <div class="tip-note">微信扫一扫 · 支持原创内容</div>
   </div>
 </div>
-</script>
 <script type="module">
 import{init}from'https://unpkg.com/@waline/client@v3/dist/waline.mjs';
 const sv=localStorage.getItem('waline_server')||'';

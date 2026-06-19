@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>记录 · 第三空间</title>
+<meta property="og:title" content="记录 · 第三空间" />
+<meta property="og:description" content="觉察 · 感受 · 生长。我是丹丹，一个90后人保代理人。这里是我记录和觉察的地方。" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://raw.githubusercontent.com/YOUR_USERNAME/dandan-space/main/og-image.svg" />
+<meta property="og:url" content="https://YOUR_USERNAME.github.io/dandan-space/" />
+<meta name="description" content="觉察 · 感受 · 生长。我是丹丹，一个90后人保代理人。这里是我记录和觉察的地方。" />
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:"Noto Serif SC","LXGW WenKai","Songti SC",Georgia,serif;
+  background:#faf8f5;color:#555;min-height:100vh;display:flex
+}
+.sidebar{
+  width:200px;min-height:100vh;
+  border-right:1px solid #eeeae3;
+  padding:50px 28px 30px;display:flex;flex-direction:column;
+  position:sticky;top:0;z-index:10
+}
+.sidebar .site{font-size:15px;font-weight:400;letter-spacing:6px;color:#3d3d3d;margin-bottom:4px}
+.sidebar .site-sub{font-size:9px;color:#ddd;letter-spacing:4px;margin-bottom:36px}
+.sidebar .nav-label{font-size:9px;color:#e8e0d8;letter-spacing:3px;margin-bottom:10px}
+.sidebar a{display:block;padding:6px 0;margin:2px 0;color:#d0c0aa;font-size:12px;letter-spacing:2px;text-decoration:none;cursor:pointer;transition:0.3s}
+.sidebar a:hover,.sidebar a.active{color:#3d3d3d}
+.sidebar a::after{display:block;content:"";width:0;height:1px;background:#d4c0aa;transition:0.3s}
+.sidebar a.active::after,.sidebar a:hover::after{width:24px}
+.sidebar .sep{flex:1}
+.sidebar .contact-side{padding-top:20px;border-top:1px solid #eeeae3;margin-top:10px}
+.sidebar .contact-side .note{font-size:9px;color:#ddd;letter-spacing:3px;margin-bottom:3px}
+.sidebar .contact-side .num{font-size:11px;color:#c4b8a8;letter-spacing:2px}
+.sidebar .contact-side .msg{font-size:10px;color:#ddd;letter-spacing:2px;line-height:1.7;margin-bottom:12px}
+.sidebar .foot{font-size:9px;color:#eee;letter-spacing:3px;margin-top:14px}
+.main{flex:1;display:flex;flex-direction:column;align-items:center;padding:40px;max-width:680px;margin:0 auto;position:relative}
+.scene{width:100%;text-align:center;display:none;flex-direction:column;justify-content:center;animation:fadeIn 0.4s ease}
+.scene.show{display:flex}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.scene .cat{font-size:9px;color:#d4c8b8;letter-spacing:4px;margin-bottom:12px}
+.scene .date{font-size:10px;color:#e0d8d0;letter-spacing:3px;margin-bottom:14px}
+.scene h2{font-size:19px;font-weight:400;color:#3d3d3d;letter-spacing:2px;line-height:1.7;margin-bottom:18px}
+.scene p{font-size:15px;color:#888;line-height:2.2;margin-bottom:12px;text-align:center}
+.scene p.left{text-align:left}
+.scene .block-text{font-size:14px;color:#999;line-height:2.2;text-align:left;padding:10px 0}
+.scene .block-text p{margin-bottom:14px;text-align:left}
+.scene .block-text .line{border-left:3px solid #e0d8d0;padding-left:20px;margin-top:14px;font-size:14px;color:#999}
+.reactions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px;padding-top:24px;border-top:1px solid #f0ece6}
+.reactions .react-btn{background:none;border:1px solid #eeeae3;border-radius:20px;padding:6px 14px;font-size:13px;font-family:inherit;color:#bbb;cursor:pointer;transition:0.3s;display:flex;align-items:center;gap:5px;letter-spacing:1px}
+.reactions .react-btn:hover{border-color:#d4c0aa;color:#888}
+.reactions .react-btn.active{border-color:#d4c0aa;color:#3d3d3d;background:#f5f0ea}
+.reactions .react-btn .count{font-size:11px;color:#d0c0aa;min-width:8px}
+.reactions .react-label{width:100%;font-size:10px;color:#e0d8d0;letter-spacing:3px;text-align:center;margin-bottom:4px}
+.arrows{display:flex;gap:20px;margin-top:24px;justify-content:center}
+.arrows .btn{background:none;border:none;color:#d0c0aa;font-size:11px;letter-spacing:3px;cursor:pointer;font-family:inherit;padding:4px 8px;transition:0.3s}
+.arrows .btn:hover{color:#3d3d3d}
+.arrows .btn:disabled{color:#eee;cursor:default}
+.guestbook-section{width:100%;margin-top:48px;padding-top:32px;border-top:1px solid #eeeae3}
+.guestbook-section .gb-title{font-size:11px;color:#d4c8b8;letter-spacing:4px;text-align:center;margin-bottom:4px}
+.guestbook-section .gb-sub{font-size:10px;color:#e0d8d0;letter-spacing:3px;text-align:center;margin-bottom:24px}
+#waline-wrap{max-width:600px;margin:0 auto;padding:0 0 20px}
+.wl-panel{background:transparent!important;border-color:#eeeae3!important}
+.wl-card{background:transparent!important}
+.wl-btn.primary{background:#d4c0aa!important;border-color:#d4c0aa!important}
+.wl-btn.primary:hover{background:#c4b0a0!important}
+.wl-count{color:#888!important}
+.wl-header label{color:#888!important}
+.wl-header input,.wl-header textarea{border-color:#eeeae3!important;background:transparent!important;font-family:inherit!important}
+.tip-side{margin-top:12px;padding-top:12px;border-top:1px solid #eeeae3}
+.tip-btn{font-size:11px;color:#d0c0aa;letter-spacing:3px;cursor:pointer;transition:0.3s;padding:4px 0}
+.tip-btn:hover{color:#3d3d3d}
+.tip-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(60,60,60,0.4);z-index:999;display:none;justify-content:center;align-items:center;animation:fadeIn 0.3s ease;backdrop-filter:blur(2px)}
+.tip-overlay.show{display:flex}
+.tip-modal{background:#faf8f5;border-radius:12px;padding:40px 36px 32px;max-width:340px;width:90%;text-align:center;position:relative;box-shadow:0 12px 40px rgba(0,0,0,0.08)}
+.tip-close{position:absolute;top:12px;right:16px;background:none;border:none;font-size:14px;color:#ddd;cursor:pointer;font-family:inherit;transition:0.3s;padding:4px}
+.tip-close:hover{color:#888}
+.tip-heart{font-size:36px;margin-bottom:12px}
+.tip-title{font-size:16px;color:#3d3d3d;letter-spacing:3px;margin-bottom:8px}
+.tip-desc{font-size:12px;color:#999;line-height:1.8;letter-spacing:1px;margin-bottom:20px}
+.tip-qr-wrap{width:180px;height:180px;margin:0 auto 16px;background:#fff;border-radius:8px;display:flex;justify-content:center;align-items:center;overflow:hidden;position:relative;border:1px solid #eeeae3}
+.tip-qr{width:100%;height:100%;object-fit:contain}
+.tip-qr-placeholder{text-align:center;color:#ddd;font-size:11px;line-height:1.8;letter-spacing:1px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.tip-qr-icon{font-size:32px;color:#e8e0d8;margin-bottom:6px}
+.tip-note{font-size:9px;color:#e0d8d0;letter-spacing:3px}
+@media (max-width:800px){.tip-side{display:none}}
+@media (max-width:800px){
+  body{flex-direction:column}
+  .sidebar{width:100%;min-height:auto;position:relative;border-right:none;border-bottom:1px solid #eeeae3;padding:24px 20px 16px;flex-direction:row;flex-wrap:wrap;gap:4px 14px}
+  .sidebar .site{width:100%}.sidebar .site-sub{width:100%;margin-bottom:12px}.sidebar .nav-label{display:none}
+  .sidebar a{padding:4px 0;margin:0;font-size:11px}.sidebar a::after{display:none}
+  .sidebar .contact-side,.sidebar .sep,.sidebar .foot{display:none}
+  .main{padding:24px 16px}.reactions{gap:6px}.reactions .react-btn{padding:5px 10px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<div class="sidebar">
+<div class="site">记录</div>
+<div class="site-sub">觉察 · 感受 · 生长</div>
+<div class="nav-label">文章</div>
+<div id="nav-links"></div>
+<div class="sep"></div>
+<div class="contact-side">
+  <div class="msg">关于保险<br>也可以找我聊聊</div>
+  <div class="note">微信</div>
+  <div class="num">18751316413</div>
+</div>
+<div class="tip-side">
+  <div class="tip-btn" onclick="showTip()">☕ 支持</div>
+</div>
+<div class="foot">慢慢来</div>
+</div>
+<div class="main">
+<div id="scene-container"></div>
+<div class="arrows" id="arrows">
+  <button class="btn" id="prevBtn">← 上一页</button>
+  <button class="btn" id="nextBtn">下一页 →</button>
+</div>
+<div class="guestbook-section">
+  <div class="gb-title">✧ 留下来坐坐 ✧</div>
+  <div class="gb-sub">如果你愿意，可以在这里留下你想说的话</div>
+  <div id="waline-wrap"></div>
+</div>
+</div>
+<script>
+const ARTICLES = [
+  {id:'welcome',category:'欢迎来到第三空间',title:'',content:[
+    {type:'p',text:'我是丹丹，一个90后人保代理人。'},
+    {type:'p',text:'我喜欢记录工作和生活中的感受和觉察。很多人跟我说，他们看到了自己还没有来得及表达或者表达不出来的感受。可能因为我记录的，都是真实走过的路吧。'},
+    {type:'p',text:'这个空间，是我把那些记录攒起来的地方。能来到这里，也许你心里也在找着什么。那不是你看到了我，是你找到了自己。'},
+    {type:'p',text:'欢迎回家。'}
+  ]},
+  {id:'to-you-and-me',category:'给自己，也给你',title:'',content:[
+    {type:'p',text:'允许自己不完美，允许自己有情绪，允许自己犯错，允许自己慢慢来。'},
+    {type:'p',text:'不断了解自己的喜怒哀乐——里面住着过去没有被好好对待过的自己。当你理解了自己，允许了自己，内在松动了，平和了，慢慢地，就会活出一个健康、自在、平和、幸福、清爽、轻松的自己。'},
+    {type:'p',text:'那些能滋养我们的人和事，自然会来。'},
+    {type:'line',text:'你愿意回头看，就已经在往前走了。\n看见那些没有被好好对待过的自己——那不是脆弱，是你在一点一点把自己接回来。'}
+  ]},
+  {id:'hug-myself',category:'成长觉察 · 2026.03.18',title:'是我把自己抱回来了',content:[
+    {type:'p',text:'我突然看到一个画面：小时候的我、现在的我、未来的我，三个人抱在一起。'},
+    {type:'p',text:'以前怕过去的我太弱、太惨、太不值得，所以想否定她、推开她、假装她不存在。\n以前怕未来的我不够好、不够强、不够完美，所以拼命期待、拼命努力、拼命往前赶。'},
+    {type:'p',text:'但现在不怕了。因为她们都在这儿，抱着我，我也抱着她们。'},
+    {type:'p',text:'不是拼，是抱。不是修理，是接纳。'},
+    {type:'p',text:'小时候的我，不再被嫌弃、被否定、被推开。她终于被看见了，被接住了。\n现在的我，不再用"你应该更好"来逼自己。她终于可以喘口气了。\n未来的我，不再是一个需要拼命追赶的目标——她就在这儿，抱着现在的我。'},
+    {type:'p',text:'这个画面，是我给自己的家。'}
+  ]},
+  {id:'past-is-fuel',category:'成长觉察 · 2026.04.16',title:'过去是燃料，现在是脚步',content:[
+    {type:'p',text:'我在理清过去、现在、未来的关系时，说出了一句话：未来的我必须要有过去的我做燃料，现在的我去走。'},
+    {type:'p',text:'不是割裂，是接力。'},
+    {type:'p',text:'以前我想甩掉过去、追赶未来、让现在拼命跑。现在我知道了：过去是燃料，现在是脚步，未来是风景。'},
+    {type:'p',text:'没有过去的疼，就没有今天的清醒；没有现在的走，就到不了任何未来。三者不是敌人，是一辆车——过去是油箱，现在是驾驶员，未来是路。'},
+    {type:'p',text:'不否定过去，不抛弃现在，不焦虑未来。该加油加油，该开车开车，该看风景看风景。'}
+  ]},
+  {id:'grandma',category:'成长觉察 · 2026.06.14',title:'在呼吸之间的停顿里和外婆重逢',content:[
+    {type:'p',text:'准备睡觉时，我照常把手放在胸口。我发现呼吸和呼吸之间的空隙变大了——一呼一吸之间的停顿时间变长了。这个感觉，像回到了小时候睡在外婆身边的时候。'},
+    {type:'p',text:'不是想起外婆，是外婆就在那个停顿里。'},
+    {type:'p',text:'以前我怕那种"停顿"——怕空、怕没着落、怕失去控制。今天发现，那个停顿里不是空，是外婆的呼吸声。不是失去，是连接。'},
+    {type:'p',text:'原来身体从未忘记。外婆的呼吸节奏刻进了我的神经里，只是以前呼吸太急，没认出它。现在慢下来了，停顿出现了，它就回来了。'},
+    {type:'p',text:'这不是悲伤，是重逢。'}
+  ]}
+];
+const REACTIONS=[
+  {key:'heart',icon:'💛',label:'共情'},
+  {key:'warm',icon:'☀️',label:'温暖'},
+  {key:'touch',icon:'🥺',label:'感动'},
+  {key:'think',icon:'💭',label:'思考'},
+  {key:'calm',icon:'🌙',label:'安静'}
+];
+let ci=0;const SK='thirdspace_reactions';
+function gr(){try{const r=localStorage.getItem(SK);return r?JSON.parse(r):{}}catch(e){return{}}}
+function sr(d){try{localStorage.setItem(SK,JSON.stringify(d))}catch(e){}}
+function tr(a,k){const d=gr();if(!d[a])d[a]={};d[a][k]=!d[a][k];sr(d);rr(a)}
+function gc(a){const d=gr(),r=d[a]||{},c={};REACTIONS.forEach(l=>{c[l.key]=0});Object.keys(r).forEach(k=>{if(r[k])c[k]=(c[k]||0)+1});return c}
+function ra(i){
+  const a=ARTICLES[i];if(!a)return;
+  const e=document.getElementById('scene-container');
+  let h='<div class="scene show"><div class="cat">'+a.category+'</div>';
+  if(a.title)h+='<h2>'+a.title+'</h2>';
+  a.content.forEach(b=>{
+    if(b.type==='p')b.text.split('\n').forEach(l=>{h+='<p class="left">'+l+'</p>'});
+    else if(b.type==='line')h+='<div class="line">'+b.text.replace(/\n/g,'<br>')+'</div>';
+  });
+  h+='</div>';e.innerHTML=h;
+  setTimeout(()=>rr(a.id),0);
+  document.getElementById('prevBtn').disabled=(i===0);
+  document.getElementById('nextBtn').disabled=(i===ARTICLES.length-1);
+  document.querySelectorAll('#nav-links a').forEach((e,j)=>{e.classList.toggle('active',j===i)});
+  ci=i;
+}
+function rr(aid){
+  const s=document.querySelector('#scene-container .scene');if(!s)return;
+  const o=s.querySelector('.reactions');if(o)o.remove();
+  const c=gc(aid),ud=gr()[aid]||{};
+  let h='<div class="reactions"><div class="react-label">如果某段话触动了你</div>';
+  REACTIONS.forEach(r=>{const a=ud[r.key]?'active':'';h+='<button class="react-btn '+a+'" data-key="'+r.key+'">'+r.icon+' '+r.label+' <span class="count">'+(c[r.key]||0)+'</span></button>'});
+  h+='</div>';s.insertAdjacentHTML('beforeend',h);
+  s.querySelectorAll('.react-btn').forEach(b=>{b.addEventListener('click',()=>{tr(aid,b.dataset.key)})});
+}
+function bn(){
+  const n=document.getElementById('nav-links');n.innerHTML='';
+  ARTICLES.forEach((a,i)=>{
+    const l=document.createElement('a');l.href='javascript:void(0)';
+    l.textContent=a.title||a.category;
+    if(i===0)l.classList.add('active');
+    l.addEventListener('click',()=>ra(i));n.appendChild(l);
+  });
+}
+function showTip(){document.getElementById('tipOverlay').classList.add('show')}
+function hideTip(){document.getElementById('tipOverlay').classList.remove('show')}
+document.addEventListener('DOMContentLoaded',function(){
+  var qi=document.getElementById('tipQr'),ph=document.getElementById('tipQrPlaceholder');
+  if(qi&&ph){qi.onerror=function(){qi.style.display='none';ph.style.display='block'};qi.onload=function(){ph.style.display='none';qi.style.display='block'}}
+});
+document.addEventListener('DOMContentLoaded',()=>{
+  bn();ra(0);
+  document.getElementById('prevBtn').addEventListener('click',()=>{if(ci>0)ra(ci-1)});
+  document.getElementById('nextBtn').addEventListener('click',()=>{if(ci<ARTICLES.length-1)ra(ci+1)});
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft'&&ci>0)ra(ci-1);
+    if(e.key==='ArrowRight'&&ci<ARTICLES.length-1)ra(ci+1);
+  });
+});
+<div class="tip-overlay" id="tipOverlay" onclick="hideTip()">
+  <div class="tip-modal" onclick="event.stopPropagation()">
+    <button class="tip-close" onclick="hideTip()">✕</button>
+    <div class="tip-heart">☕</div>
+    <div class="tip-title">请我喝一杯咖啡</div>
+    <div class="tip-desc">如果我的文字曾给你带来过温暖<br>你的支持会鼓励我继续写下去</div>
+    <div class="tip-qr-wrap">
+      <img src="wechat-pay-qr.png" alt="微信收款码" class="tip-qr" id="tipQr"/>
+      <div class="tip-qr-placeholder" id="tipQrPlaceholder">
+        <div class="tip-qr-icon">⊞</div>
+        <div class="tip-qr-hint">请将你的微信收款码<br>保存为 wechat-pay-qr.png<br>放在本文件夹中</div>
+      </div>
+    </div>
+    <div class="tip-note">微信扫一扫 · 支持原创内容</div>
+  </div>
+</div>
+</script>
+<script type="module">
+import{init}from'https://unpkg.com/@waline/client@v3/dist/waline.mjs';
+const sv=localStorage.getItem('waline_server')||'';
+if(sv){init({el:'#waline-wrap',serverURL:sv,lang:'zh-CN',pageSize:10,dark:false,emoji:['https://unpkg.com/@waline/emojis@1.2.0/weibo'],requiredMeta:['nick'],copyright:false})}
+else{document.getElementById('waline-wrap').innerHTML='<div style="text-align:center;padding:20px 0;color:#d0c0aa;font-size:12px;letter-spacing:2px;line-height:2;">🌱 留言功能正在准备中<br>暂时可以通过微信联系我：18751316413</div>'}
+</script>
+</body>
+</html>
+
+
+
+

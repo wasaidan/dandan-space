@@ -94,7 +94,10 @@ body{
   .sidebar .contact-side,.sidebar .sep,.sidebar .foot{display:none}
   .main{padding:24px 16px}.reactions{gap:6px}.reactions .react-btn{padding:5px 10px;font-size:12px}
 }
-</style>
+.article-tip{text-align:center;margin-top:40px;padding-top:20px;border-top:1px solid #f0ece6}
+.article-tip .tip-divider{font-size:13px;color:#e0d8d0;letter-spacing:6px;margin-bottom:16px}
+.tip-inline-btn{background:none;border:1px solid #e4dcd4;border-radius:20px;padding:8px 20px;font-size:13px;font-family:inherit;color:#b8a898;cursor:pointer;letter-spacing:1px;transition:0.3s;line-height:1.6}
+.tip-inline-btn:hover{border-color:#d0bca8;color:#888;background:#f8f4ee}</style>
 </head>
 <body>
 <div class="sidebar">
@@ -162,18 +165,8 @@ const ARTICLES = [
     {type:'p',text:'这不是悲伤，是重逢。'}
   ]}
 ];
-const REACTIONS=[
-  {key:'heart',icon:'💛',label:'共情'},
-  {key:'warm',icon:'☀️',label:'温暖'},
-  {key:'touch',icon:'🥺',label:'感动'},
-  {key:'think',icon:'💭',label:'思考'},
-  {key:'calm',icon:'🌙',label:'安静'}
-];
+
 let ci=0;const SK='thirdspace_reactions';
-function gr(){try{const r=localStorage.getItem(SK);return r?JSON.parse(r):{}}catch(e){return{}}}
-function sr(d){try{localStorage.setItem(SK,JSON.stringify(d))}catch(e){}}
-function tr(a,k){const d=gr();if(!d[a])d[a]={};d[a][k]=!d[a][k];sr(d);rr(a)}
-function gc(a){const d=gr(),r=d[a]||{},c={};REACTIONS.forEach(l=>{c[l.key]=0});Object.keys(r).forEach(k=>{if(r[k])c[k]=(c[k]||0)+1});return c}
 function ra(i){
   const a=ARTICLES[i];if(!a)return;
   const e=document.getElementById('scene-container');
@@ -183,21 +176,12 @@ function ra(i){
     if(b.type==='p')b.text.split('\n').forEach(l=>{h+='<p class="left">'+l+'</p>'});
     else if(b.type==='line')h+='<div class="line">'+b.text.replace(/\n/g,'<br>')+'</div>';
   });
-  h+='</div>';e.innerHTML=h;
-  setTimeout(()=>rr(a.id),0);
+  h+='<div class="article-tip"><div class="tip-divider">· · ·</div><button class="tip-inline-btn" onclick="showTip()">☕ 支持</button></div>';e.innerHTML=h;
+  
   document.getElementById('prevBtn').disabled=(i===0);
   document.getElementById('nextBtn').disabled=(i===ARTICLES.length-1);
   document.querySelectorAll('#nav-links a').forEach((e,j)=>{e.classList.toggle('active',j===i)});
   ci=i;
-}
-function rr(aid){
-  const s=document.querySelector('#scene-container .scene');if(!s)return;
-  const o=s.querySelector('.reactions');if(o)o.remove();
-  const c=gc(aid),ud=gr()[aid]||{};
-  let h='<div class="reactions"><div class="react-label">如果某段话触动了你</div>';
-  REACTIONS.forEach(r=>{const a=ud[r.key]?'active':'';h+='<button class="react-btn '+a+'" data-key="'+r.key+'">'+r.icon+' '+r.label+' <span class="count">'+(c[r.key]||0)+'</span></button>'});
-  h+='</div>';s.insertAdjacentHTML('beforeend',h);
-  s.querySelectorAll('.react-btn').forEach(b=>{b.addEventListener('click',()=>{tr(aid,b.dataset.key)})});
 }
 function bn(){
   const n=document.getElementById('nav-links');n.innerHTML='';
